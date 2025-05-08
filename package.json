@@ -1,21 +1,31 @@
 {
-  "name": "trpc-express-prisma-react-vite-starter",
+  "name": "trpc-express-prisma-react-vite-docker-starter",
   "version": "1.0.0",
-  "description": "Starter skeleton for a fullstack app with TRPC, Prisma, Vite + React, and Docker",
   "main": "index.js",
-  "license": "MIT",
-  "private": true,
   "scripts": {
-    "build": "yarn workspace server build && yarn workspace client build",
-    "develop": "docker-compose up --build",
-    "dev": "yarn workspace client run dev",
-    "prisma:migrate:dev": "docker-compose exec server npx prisma migrate dev",
-    "typecheck": "bash scripts/typecheck.sh"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "workspaces": {
-    "packages": [
-      "./packages/server",
-      "./packages/client"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jason-greenberg/trpc-express-prisma-react-vite-docker-starter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jason-greenberg/trpc-express-prisma-react-vite-docker-starter/issues"
+  },
+  "homepage": "https://github.com/jason-greenberg/trpc-express-prisma-react-vite-docker-starter#readme",
+  "description": "",
+  "dependencies": {
+    "@prisma/client": "^6.7.0",
+    "@trpc/server": "^11.1.2",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "prisma": "^6.7.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   }
 }
