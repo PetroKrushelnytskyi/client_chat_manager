@@ -1,28 +1,42 @@
 import express from 'express';
-import { createExpressMiddleware } from '@trpc/server/adapters/express';
-import { appRouter } from './routers/app';
-import { createContext } from './context';
-import cors from 'cors'; // Додайте цей імпорт
+import { createServer } from 'http';
+import cors from 'cors';
+import * as trpcExpress from '@trpc/server/adapters/express';
 
-const app = express();
-const PORT = 3001;
-// Додайте CORS-політику
-app.use(cors());
-app.use(express.json());
-// Дозволяє парсити JSON-тіла запитів
-app.use(express.json());
+import { appRouter } from './router';
+import { createContext } from './trpc';
+import { APP_VERSION, HOST, PORT } from './config';
+import { initSocket } from './socket';
 
-// tRPC-роут
-app.use('/trpc', createExpressMiddleware({
-  router: appRouter,
-  createContext,
-}));
+async function main() {
+  const app = express();
+  const httpServer = createServer(app);
 
-// Простий GET-роут для перевірки (опціонально)
-app.get('/', (req, res) => {
-  res.send('Backend is running!');
-});
+  // Ініціалізація Socket.io
+  initSocket(httpServer);
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+  app.use(cors());
+  app.use(express.json());
+
+  app.use((req, _res, next) => {
+    next();
+  });
+
+  app.use(
+    '/trpc',
+    trpcExpress.createExpressMiddleware({
+      router: appRouter,
+      createContext,
+    })
+  );
+
+  app.get('/', (_req, res) => {
+    res.send(APP_VERSION);
+  });
+
+  httpServer.listen(Number(PORT), HOST || undefined, () => {
+    console.log(`🚀 Server ready at ${HOST ?? 'localhost'}:${PORT}`);
+  });
+}
+
+void main();
