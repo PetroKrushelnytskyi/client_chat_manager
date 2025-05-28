@@ -17,7 +17,7 @@ const Header = () => {
           >
             Вийти
           </button>
-                )}
+          )}
         </div>
       </div>
     </header>

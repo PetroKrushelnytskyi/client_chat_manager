@@ -6,7 +6,7 @@ import { UserContextProvider } from '../contexts/User';
 import { getJWT } from '@client/components/utility/localStorage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppRoutes } from '../src/routers/AppRoutes';
-import { BrowserRouter } from 'react-router-dom'; // 👈 додано
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   const [queryClient, setQueryClient] = useState(() => new QueryClient());
@@ -19,7 +19,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter> {/* 👈 Додано */}
+    <BrowserRouter>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <UserContextProvider refreshTRPCClient={refreshTRPCClient}>
