@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { io } from '../../../socket'; //
+import { io } from '../../../socket';
 
 const prisma = new PrismaClient();
 
@@ -32,13 +32,10 @@ export const saveMessage = async ({
       },
     });
 
-    // Emit WebSocket event to notify clients about the new message
     io.emit('newMessage', {
-      id: newMessage.id,
-      message: newMessage.message,
+      ...newMessage,
       chatId: newMessage.chatId,
-      userId: newMessage.userId,
-      createdAt: newMessage.createdAt,
+  
     });
 
     return { success: true, message: 'Message saved' };

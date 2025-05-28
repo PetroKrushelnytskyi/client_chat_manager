@@ -1,5 +1,5 @@
 import { Telegraf } from 'telegraf';
-import { CreateUserInput } from '../trpc/procedures/telegramBot/createUser';
+import { CreateUserInput } from '../../trpc/procedures/telegramBot/createUser';
 
 interface BotFunctions {
   createOrUpdateUser?: (input: CreateUserInput) => Promise<{ success: boolean; message: string }>;

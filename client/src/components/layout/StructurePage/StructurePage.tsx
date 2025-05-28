@@ -1,8 +1,10 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react'; 
 
 type Data = {
   id: number;
   name: string;
+  unread: boolean;
   pathname?: string;
 };
 
@@ -30,14 +32,19 @@ const StructurePage = ({
   selectedId,
 }: StructurePageProps) => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleItemClick = (item: Data) => {
     if (onSelect) {
       onSelect(item.id);
     } else if (item.pathname) {
-      navigate(item.pathname); 
+      navigate(item.pathname);
     }
   };
+
+  const filteredData = data.filter((item) =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="flex flex-col md:flex-row w-full h-full">
@@ -60,8 +67,10 @@ const StructurePage = ({
         <div className="flex items-center space-x-2">
           <input
             type="text"
-            placeholder="Пошук..."
+            placeholder="Пошук за ім'ям..."
             className="border border-gray-300 rounded px-3 py-2 w-full"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} // Update search query
           />
           <button className="bg-gray-200 p-2 rounded hover:bg-gray-300 transition">
             🔍
@@ -69,7 +78,7 @@ const StructurePage = ({
         </div>
 
         <ul className="space-y-3">
-          {data.map((item) => (
+          {filteredData.map((item) => (
             <li key={item.id} className="flex flex-col space-y-1">
               <div
                 className={`flex items-center space-x-3 p-2 rounded-md cursor-pointer ${
@@ -77,7 +86,10 @@ const StructurePage = ({
                 }`}
                 onClick={() => handleItemClick(item)}
               >
-                <span className="text-gray-800 text-lg">{item.name}</span>
+                <span className="text-gray-800 text-lg">
+                  {item.name}
+                  {item.unread && <span className="ml-2 text-red-500">●</span>}
+                </span>
               </div>
               <hr className="border-gray-300 mt-1" />
             </li>

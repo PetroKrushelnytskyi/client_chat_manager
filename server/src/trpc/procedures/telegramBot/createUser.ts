@@ -1,8 +1,9 @@
 import { publicProcedure } from '../../../trpc';
 import { z } from 'zod';
 import { PrismaClient } from '@prisma/client';
-import { initBot } from '../../../telegramBot/botFunctions';
+import { initBot } from '../../../utils/telegramBot/botFunctions';
 import { saveMessage } from './saveMessageMutation';
+import { io } from '../../../socket';
 
 const prisma = new PrismaClient();
 
@@ -23,14 +24,19 @@ const createOrUpdateUser = async ({ telegramId, firstName, lastName, chatId }: C
     ]);
 
     if (!user) {
-      await prisma.user.create({
+     const newUser = await prisma.user.create({
         data: {
           telegramId: BigInt(telegramId),
           name: `${firstName} ${lastName || ''}`.trim(),
         },
       });
+      io.emit('newUser', {
+        ...newUser,
+        userId: Number(newUser.id),
+        telegramId: Number(newUser.telegramId),
+      });
+      
     }
-
     if (!chat) {
       await prisma.chat.create({ data: { chatId: BigInt(chatId) } });
     }
