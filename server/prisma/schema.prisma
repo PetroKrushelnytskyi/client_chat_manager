@@ -40,6 +40,7 @@ model Messages {
   userId    Int?
   accountId Int?
   chatId    Int
+  read      Boolean  @default(false)
   chat      Chat?    @relation(fields: [chatId], references: [id])
   user      User?    @relation(fields: [userId], references: [id])
   account Account? @relation(fields: [accountId], references: [id])
