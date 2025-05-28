@@ -1,5 +1,6 @@
 client_chat_manager: is a system for small and medium-sized businesses that allows managers to respond to user messages from Telegram through a convenient web interface in real time. 
-<img width="1678" alt="Знімок екрана 2025-05-28 о 14 42 30" src="https://github.com/user-attachments/assets/e5d057fc-7f9f-4951-a093-5a841f5aa278" />
+<img width="![2025-05-28 14 56 13](https://github.com/user-attachments/assets/f8d96fd1-72af-4487-b4e4-0ce5946abb24)
+1678" alt="Знімок екрана 2025-05-28 о 14 42 30" src="https://github.com/user-attachments/assets/e5d057fc-7f9f-4951-a093-5a841f5aa278" />
 
 ⚙️ Functionality:
 🔐 Authorization using JWT
