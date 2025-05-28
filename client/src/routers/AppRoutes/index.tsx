@@ -1,7 +1,7 @@
 import { UserContext, UserContextType } from '../../../contexts/User';
-import { appRoutersList } from '../index';
+import { appRoutersList, singInUrl } from '../index';
 import { useContext } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 export const AppRoutes = () => {
   const { currentAccount }: UserContextType = useContext(UserContext);
@@ -14,7 +14,9 @@ export const AppRoutes = () => {
             key={url}
             path={url}
             element={
-              ComponentWrapper ? (
+              !currentAccount && url !== singInUrl ? (
+                <Navigate to={singInUrl} replace />
+              ) : ComponentWrapper ? (
                 <ComponentWrapper user={currentAccount}>
                   <Component />
                 </ComponentWrapper>
