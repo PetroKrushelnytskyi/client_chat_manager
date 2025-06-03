@@ -16,6 +16,7 @@ model Account {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(3)
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
   messages Messages[]
+  ratingMeneger RatingMeneger[]
 }
 model User {
   id Int     @id @default(autoincrement())
@@ -24,6 +25,7 @@ model User {
   createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp(3)
   updatedAt  DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
   messages Messages[]
+  ratingMeneger RatingMeneger[]
 }
 model Chat {
   id        Int    @id @default(autoincrement())
@@ -32,6 +34,7 @@ model Chat {
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
 
   messages Messages[]
+  ratingMeneger RatingMeneger[]
 }
 model Messages {
   id Int    @id @default(autoincrement())
@@ -46,4 +49,16 @@ model Messages {
   account Account? @relation(fields: [accountId], references: [id])
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(3)
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp(3)
+}
+model RatingMeneger{
+  id Int    @id @default(autoincrement())
+  userId    Int
+  accountId Int
+  chatId    Int
+  rating    Int
+  
+  chat      Chat    @relation(fields: [chatId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+  account   Account @relation(fields: [accountId], references: [id])
+
 }

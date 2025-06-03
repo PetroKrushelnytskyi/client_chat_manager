@@ -2,21 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 .structure-page {
-    display: flex;
-    gap: 2rem;
-    padding: 1rem;
-  }
-  
-  .structure-page__left {
-    width: 30%;
-  }
-  
-  .structure-page__right {
-    flex-grow: 1;
-  }
-  
-  .structure-page__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.structure-page__left {
+  width: 30%;
+}
+
+.structure-page__right {
+  flex-grow: 1;
+}
+
+.structure-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
