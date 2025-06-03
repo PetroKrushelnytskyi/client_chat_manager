@@ -6,13 +6,7 @@ import { Account } from '@prisma/client';
 
 type SingInForm = Omit<
   Account,
-  | 'id'
-  | 'role'
-  | 'createdAt'
-  | 'updatedAt'
-  | 'firstName'
-  | 'lastName'
-  | 'fatherly'
+  'id' | 'role' | 'createdAt' | 'updatedAt' | 'firstName' | 'lastName' | 'fatherly'
 >;
 
 export const SingIn = () => {
@@ -20,12 +14,12 @@ export const SingIn = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors }
+    formState: { errors },
   } = useForm<SingInForm>({
     defaultValues: {
       login: '',
-      password: ''
-    }
+      password: '',
+    },
   });
 
   const { login } = useContext(UserContext);
@@ -38,7 +32,7 @@ export const SingIn = () => {
     },
     onError: (error) => {
       console.error('Error during sign-in:', error);
-    }
+    },
   });
 
   const onSubmitFun = async (data: SingInForm) => {
@@ -48,7 +42,7 @@ export const SingIn = () => {
     } catch {
       setError('login', {
         type: 'manual',
-        message: 'Невірний логін або пароль'
+        message: 'Невірний логін або пароль',
       });
     }
   };
@@ -60,9 +54,7 @@ export const SingIn = () => {
           <h1 className="text-2xl font-bold text-center">Вхід</h1>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Логін
-            </label>
+            <label className="block text-sm font-medium text-gray-700">Логін</label>
             <input
               type="text"
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -74,9 +66,7 @@ export const SingIn = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Пароль
-            </label>
+            <label className="block text-sm font-medium text-gray-700">Пароль</label>
             <input
               type="password"
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"

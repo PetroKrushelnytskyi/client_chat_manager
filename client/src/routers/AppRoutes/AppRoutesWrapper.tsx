@@ -12,10 +12,7 @@ type RedirectArgsType = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RedirectType = any;
 
-export const AuthorizedRequiredForPage = ({
-  user,
-  children
-}: RedirectArgsType): RedirectType => {
+export const AuthorizedRequiredForPage = ({ user, children }: RedirectArgsType): RedirectType => {
   if (!user) {
     return <Navigate to={singInUrl} />;
   }
@@ -23,10 +20,7 @@ export const AuthorizedRequiredForPage = ({
   return children;
 };
 
-export const NotAuthorizedForPage = ({
-  user,
-  children
-}: RedirectArgsType): RedirectType => {
+export const NotAuthorizedForPage = ({ user, children }: RedirectArgsType): RedirectType => {
   if (user) {
     return <Navigate to={homeUrl} />;
   }

@@ -13,34 +13,29 @@ export const UserContext = React.createContext({
   currentAccount: null,
   login: () => {},
   logout: () => {},
-  refetch: () => {}
+  refetch: () => {},
 } as UserContextType);
 
 export const UserContextProvider = ({
   children,
-  refreshTRPCClient
+  refreshTRPCClient,
 }: {
   children: React.ReactNode;
   refreshTRPCClient: () => void;
 }) => {
-  const [currentAccount, setcurrentAccount] = useState<
-    RouterOutputs['currentAccount'] | null
-  >(null);
+  const [currentAccount, setcurrentAccount] = useState<RouterOutputs['currentAccount'] | null>(
+    null,
+  );
 
   const currentAccountData = trpc.currentAccount.useQuery();
 
   useEffect(() => {
     if (!currentAccountData.isLoading) {
-      setcurrentAccount(
-        currentAccountData.data?.account ? currentAccountData.data : null
-      );
+      setcurrentAccount(currentAccountData.data?.account ? currentAccountData.data : null);
     }
   }, [currentAccountData.data, currentAccountData.isLoading]);
 
-  if (
-    currentAccountData.isLoading ||
-    (!currentAccount && currentAccountData.data?.account.id)
-  ) {
+  if (currentAccountData.isLoading || (!currentAccount && currentAccountData.data?.account.id)) {
     return null;
   }
   const login = async (jwt: string) => {

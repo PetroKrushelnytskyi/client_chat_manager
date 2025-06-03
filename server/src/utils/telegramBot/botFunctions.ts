@@ -1,5 +1,5 @@
-import { Telegraf } from 'telegraf';
 import { CreateUserInput } from '../../trpc/procedures/telegramBot/createUser';
+import bot from './bot';
 
 interface BotFunctions {
   createOrUpdateUser?: (input: CreateUserInput) => Promise<{ success: boolean; message: string }>;
@@ -12,7 +12,6 @@ interface BotFunctions {
 }
 
 export function initBot({ createOrUpdateUser, saveMessage }: BotFunctions) {
-  const bot = new Telegraf(process.env.BOT_TOKEN!);
 
   bot.start(async (ctx) => {
     const { id: telegramId, first_name: firstName, last_name: lastName } = ctx.from;

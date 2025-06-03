@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react'; 
+import { useState } from 'react';
 
 type Data = {
   id: number;
   name: string;
-  unread: boolean;
+  unread?: boolean;
   pathname?: string;
 };
 
@@ -43,7 +43,7 @@ const StructurePage = ({
   };
 
   const filteredData = data.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    item.name.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -70,11 +70,9 @@ const StructurePage = ({
             placeholder="Пошук за ім'ям..."
             className="border border-gray-300 rounded px-3 py-2 w-full"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} // Update search query
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button className="bg-gray-200 p-2 rounded hover:bg-gray-300 transition">
-            🔍
-          </button>
+          <button className="bg-gray-200 p-2 rounded hover:bg-gray-300 transition">🔍</button>
         </div>
 
         <ul className="space-y-3">

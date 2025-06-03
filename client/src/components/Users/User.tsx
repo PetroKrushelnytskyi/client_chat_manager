@@ -22,7 +22,12 @@ const Users = () => {
 
   const { data: users, isLoading } = trpc.users.list.useQuery();
   const markMessagesAsRead = trpc.users.markMessagesAsRead.useMutation();
+  const endChatMutation = trpc.bot.endChatAndRequestRating.useMutation();
 
+  const handleEndChat = async () => {
+    const user = users.find((u) => u.id === selectedUserId);  
+    await endChatMutation.mutateAsync({ userId: user.id, accountId: currentAccount.account.id });
+  };
   useEffect(() => {
     if (selectedUserId) {
       markMessagesAsRead.mutate({ userId: selectedUserId });
@@ -47,7 +52,7 @@ const Users = () => {
       type: 'MENEGER',
     });
   };
-
+  
   const handleUserSelect = (userId: number) =>
     navigateTo({ pathname: generateUrlParams({ url: homeUrl, id: userId }) });
 
@@ -89,7 +94,9 @@ const Users = () => {
                       <p className="text-xs text-gray-400">{msg.user?.name}</p>
                     )}
                     <p className="text-sm text-gray-700">{msg.message}</p>
-                    <p className="text-xs text-gray-400">{new Date(msg.createdAt).toLocaleString()}</p>
+                    <p className="text-xs text-gray-400">
+                      {new Date(msg.createdAt).toLocaleString()}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -115,6 +122,9 @@ const Users = () => {
                   className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition"
                 >
                   Надіслати
+                </button>
+                <button className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition" onClick={handleEndChat}>
+                  Заверишити чат
                 </button>
               </div>
             </div>

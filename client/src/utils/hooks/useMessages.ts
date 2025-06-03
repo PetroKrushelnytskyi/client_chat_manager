@@ -11,7 +11,7 @@ export const useMessages = (userId?: number) => {
 
   const { data: initialMessages } = trpc.users.getMessagesByUser.useQuery(
     { userId: userId ?? 0 },
-    { enabled: !!userId }
+    { enabled: !!userId },
   );
 
   const [messages, setMessages] = useState(() => initialMessages ?? []);

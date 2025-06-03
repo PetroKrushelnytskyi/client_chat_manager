@@ -15,10 +15,10 @@ export const createTRPCClient = (token: string | null) => () => {
         url: `${API_URL}/trpc`,
         async headers() {
           return {
-            authorization: token ? `Bearer ${token}` : ''
+            authorization: token ? `Bearer ${token}` : '',
           };
-        }
-      })
-    ]
+        },
+      }),
+    ],
   });
 };
